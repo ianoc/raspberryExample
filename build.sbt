@@ -26,16 +26,8 @@ libraryDependencies ++= {
   )
 }
 
-//fork in run := true
-
-runMain in Compile <<= Defaults.runMainTask(fullClasspath in Compile, runner in (Compile, run))
-
-run in Compile <<= Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run))
-
 assemblySettings
 
-
-assembleArtifact in packageScala := false
 
 mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   {
@@ -46,4 +38,4 @@ mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
   }
 }
 
-test in assembly := {}
+mainClass in assembly := Some("com.example.Driver")

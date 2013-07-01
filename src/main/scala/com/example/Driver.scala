@@ -31,12 +31,17 @@ object Driver {
     val xmlString = Source.fromInputStream(getStream(username, password)).mkString
     val xml = XML.loadString(xmlString)
     (xml \\ "feed" \\ "fullcount").map(e => e.text.toInt).head
-
   }
 
   def main(args: Array[String]) {
-    while(true) {
-      if(fetch_new_mails > 0) green_led.high() else green_led.low()
+    while (true) {
+      if (fetch_new_mails > 0) {
+        red_led.low
+        green_led.high
+      } else {
+        green_led.low
+        red_led.high
+      }
       Thread.sleep(60000) // 60 second pause between checking
     }
   }
